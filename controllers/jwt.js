@@ -2,14 +2,14 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 
 const authenticate = expressJwt({
-    secret: 'my-secret',
+    secret: 'secret',
     requestProperty: 'auth',
     getToken: function(req) {
-    if (req.headers['x-auth-token']) {
-        return req.headers['x-auth-token'];
-    }
-    return null;
-  }
+	    if (req.headers['authorization']) {
+	        return req.headers['authorization'];
+	    }
+	    return null;
+	}
 });
 
 // function createToken(auth) {
