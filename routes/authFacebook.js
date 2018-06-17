@@ -10,7 +10,6 @@ app.get('/', passport.authenticate('facebook-token', {session: false}), (req, re
 
     console.log("User var: " + req.user);
 
-    // prepare token for API
     req.auth = {
       id: req.user.id,
       favorites: req.user.favorites,

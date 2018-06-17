@@ -5,6 +5,7 @@ const jwt = require('../controllers/jwt');
 const User = require('../models/user');
 
 const getCurrentUser = function(req, res, next) {
+	console.log("*************************** " + req)
   User.findById(req.auth.id, function(err, user) {
     if (err) {
       next(err);
