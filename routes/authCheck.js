@@ -5,6 +5,7 @@ const jwt = require('../controllers/jwt');
 const User = require('../models/user');
 
 const getCurrentUser = function(req, res, next) {
+	console.log(req.auth)
   User.findOne({id: req.auth.data.id}, function(err, user) {
     if (err) {
       next(err);
@@ -19,7 +20,6 @@ const getCurrentUser = function(req, res, next) {
 const getOne = function (req, res) {
   const user = req.user.toObject();
 
-  delete user['facebookProvider'];
   delete user['__v'];
 
   res.json(user);

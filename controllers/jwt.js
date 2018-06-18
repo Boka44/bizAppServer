@@ -12,17 +12,6 @@ const authenticate = expressJwt({
 	}
 });
 
-// function createToken(auth) {
-// 	jwt.sign({
-// 	    exp: Math.floor(Date.now() / 1000) + (60 * 60),
-// 	    data: {
-// 	    	favorites: auth.favorites,
-// 	    	id: auth.id,
-// 	    	name: auth.name
-// 	    }
-// 	}, 'secret');
-// }
-
 module.exports = {
 
 	generateToken: function (req, res, next) {

@@ -11,6 +11,9 @@ require('./config/database');
 require('./config/passport')(passport);
 const authFacebook = require('./routes/authFacebook');
 const authCheck = require('./routes/authCheck');
+const finance = require('./routes/finance');
+const update = require('./routes/update');
+const getUser = require('./routes/getUser');
 
 
 app.use(bodyParser.json());
@@ -40,6 +43,9 @@ app.use(cors(corsOption));
 
 app.use('/authFacebook', authFacebook);
 app.use('/authCheck', authCheck);
+app.use('/finance', finance);
+app.use('/update', update);
+app.use('/getUser', getUser);
 
 app.listen(PORT, () => {
 	console.log("server is running on port " + PORT);
