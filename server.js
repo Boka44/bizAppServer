@@ -10,6 +10,7 @@ const app = express();
 require('./config/database');
 require('./config/passport')(passport);
 const authFacebook = require('./routes/authFacebook');
+const authGoogle = require('./routes/authGoogle');
 const authCheck = require('./routes/authCheck');
 const finance = require('./routes/finance');
 const update = require('./routes/update');
@@ -43,6 +44,7 @@ app.use(cors(corsOption));
 
 app.use('/authFacebook', authFacebook);
 app.use('/authCheck', authCheck);
+app.use('/authGoogle', authGoogle);
 app.use('/finance', finance);
 app.use('/update', update);
 app.use('/getUser', getUser);

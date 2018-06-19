@@ -3,8 +3,8 @@ const passport = require('passport');
 const app = express();
 const jwt = require('../controllers/jwt');
 
-app.get('/', passport.authenticate('facebook-token', {session: false}), (req, res, next) => {
-	
+app.post('/', passport.authenticate('google-id-token', {session: false}), (req, res, next) => {
+
 	if (!req.user) {
       return res.send(401, 'User Not Authenticated');
     }
@@ -16,7 +16,7 @@ app.get('/', passport.authenticate('facebook-token', {session: false}), (req, re
       favorites: req.user.favorites,
       name: req.user.name,
       token: req.user.token
-    };
+	};	
 
     next();
 }, jwt.generateToken, jwt.sendToken);
