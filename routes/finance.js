@@ -6,12 +6,14 @@ const username = process.env.API_USERNAME;
 const password = process.env.API_PASSWORD;
 const auth = "Basic " + new Buffer(username + ':' + password).toString('base64');
 
+const stocks = "AAPL,GOOGL,MSFT,AMZN,FB,BRK-A,BABA,JNJ,JPM,XOM,BAC,WMT,WFC,RDS-A,V,PG,BUD,T,CVX,UNH,PFE,CHL,HD,INTC,TSM,VZ,ORCL,C,NVS,SNAP,DIS,TSLA,NFLX,TWTR,RCII,RAD,SIRI,AIG,AXP,INT,INS,S,SBUX,X,XRX,PRU,PEP,PM,SNE,NTDOY"
+
 app.get('/', (req, res, next) => {
 
 	const request = https.request({
 	    method: "GET",
 	    host: "api.intrinio.com",
-	    path: "/data_point?identifier=AAPL,GOOGL,MSFT&item=last_price",
+	    path: `/data_point?identifier=${stocks}&item=last_price`,
 	    headers: {
 	        "Authorization": auth
 	    }
@@ -26,7 +28,7 @@ app.get('/', (req, res, next) => {
 	        const request1 = https.request({
 			    method: "GET",
 			    host: "api.intrinio.com",
-			    path: "/data_point?identifier=AAPL,GOOGL,MSFT&item=security_name",
+			    path: `/data_point?identifier=${stocks}&item=security_name`,
 			    headers: {
 			        "Authorization": auth
 			    }
@@ -38,13 +40,11 @@ app.get('/', (req, res, next) => {
 			    response1.on('end', function() {
 			        const names = JSON.parse(json1);
         			let count = 0;
-			        companies.data.forEach((c) => {
-			        	names.data.forEach((n) => {
-							c.name = n.value;
-							c.isFav = false;				        	
-			        	})
+			        for (let i = 0; i < companies.data.length; i++) {
+			        	companies.data[i].name = names.data[i].value
 			        	count++;
-			        })
+			        }
+			        console.log(count)
 			        if(count === companies.data.length) {
 			        	res.send(companies)
 			        }
