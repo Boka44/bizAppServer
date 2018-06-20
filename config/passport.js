@@ -8,6 +8,8 @@ const FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
+// finds or creates a new user in the database defined by user id from either facebook or google.
+
 function findOneOrCreate(id, name, accessToken, done) {
   User.findOne({id: id}, function(err, user) {
     console.log("Round 2")
@@ -31,6 +33,9 @@ function findOneOrCreate(id, name, accessToken, done) {
     }
   });
 }
+
+// passport authentication strategies using access tokens to authenticate users by their facebook 
+// or google profile
 
 module.exports = function(passport) {
 

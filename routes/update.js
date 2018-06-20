@@ -4,6 +4,8 @@ const app = express();
 const jwt = require('../controllers/jwt');
 const User = require('../models/user');
 
+// This path is used to update the users favorites
+
 app.post('/', jwt.authenticate, (req, res, next) => {
 	console.log(req.body.favorites)
 	User.findOneAndUpdate({id: req.auth.data.id}, {$set:{favorites: req.body.favorites}}, {new: true}, (err, doc) => {

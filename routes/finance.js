@@ -8,6 +8,9 @@ const auth = "Basic " + new Buffer(username + ':' + password).toString('base64')
 
 const stocks = "AAPL,GOOGL,MSFT,AMZN,FB,BRK-A,BABA,JNJ,JPM,XOM,BAC,WMT,WFC,RDS-A,V,PG,BUD,T,CVX,UNH,PFE,CHL,HD,INTC,TSM,VZ,ORCL,C,NVS,SNAP,DIS,TSLA,NFLX,TWTR,RCII,RAD,SIRI,AIG,AXP,INT,INS,S,SBUX,X,XRX,PRU,PEP,PM,SNE,NTDOY"
 
+// Intrinio API doesn't serve both security name and price in a single API call, so to get around that I 
+// make two calls and modify the data before I send it to the client. 
+
 app.get('/', (req, res, next) => {
 
 	const request = https.request({

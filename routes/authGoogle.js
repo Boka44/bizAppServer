@@ -3,6 +3,8 @@ const passport = require('passport');
 const app = express();
 const jwt = require('../controllers/jwt');
 
+// authentication for google login. Uses JWT middleware.
+
 app.post('/', passport.authenticate('google-id-token', {session: false}), (req, res, next) => {
 
 	if (!req.user) {

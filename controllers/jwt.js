@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 
+// defines the middleware for authenticating and signing JWT tokens
+
 const authenticate = expressJwt({
     secret: 'secret',
     requestProperty: 'auth',

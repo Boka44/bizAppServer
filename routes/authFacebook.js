@@ -3,8 +3,10 @@ const passport = require('passport');
 const app = express();
 const jwt = require('../controllers/jwt');
 
+// authentication for facebook login with JWT middleware.
+
 app.get('/', passport.authenticate('facebook-token', {session: false}), (req, res, next) => {
-	
+
 	if (!req.user) {
       return res.send(401, 'User Not Authenticated');
     }
