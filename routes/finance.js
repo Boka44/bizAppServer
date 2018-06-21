@@ -66,7 +66,7 @@ app.get('/', (req, res, next) => {
 					        }
 					        console.log(count)
 					        if(count === companies.data.length) {
-					        	updateStocks(companies, date);
+					        	updateStocks(companies, today);
 					        	res.send(companies)					        	
 					        }
 					    });
