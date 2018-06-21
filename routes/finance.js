@@ -7,9 +7,9 @@ const password = process.env.API_PASSWORD;
 const auth = "Basic " + new Buffer(username + ':' + password).toString('base64');
 const stockSchema = require('../models/stocks');
 
-function updateStocks (data) {
+function updateStocks (data, date) {
 	const update = {
-		date: new Date(),
+		date: date.toDateString(),
 		data: data
 	}
 	stockSchema.findOneAndUpdate({}, update, (err, doc) => {
@@ -26,7 +26,9 @@ const stocks = "AAPL,GOOGL,MSFT,AMZN,FB,BRK-A,BABA,JNJ,JPM,XOM,BAC,WMT,WFC,RDS-A
 
 app.get('/', (req, res, next) => {
 	stockSchema.find({}, (err, doc) => {
-		if (doc.date !== new Date()) {
+		const date = new Date(doc[0].date);
+		const today = new Date();
+		if (date.getDay() !== today.getDay()) {
 
 			const request = https.request({
 			    method: "GET",
@@ -64,7 +66,7 @@ app.get('/', (req, res, next) => {
 					        }
 					        console.log(count)
 					        if(count === companies.data.length) {
-					        	updateStocks(companies);
+					        	updateStocks(companies, date);
 					        	res.send(companies)					        	
 					        }
 					    });
@@ -75,7 +77,7 @@ app.get('/', (req, res, next) => {
 			request.end();
 		} else {
 			stockSchema.find({}, (err, doc) => {
-				res.send(doc.data);
+				res.send(doc[0].data);
 			})
 		}
 	})
